@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     "net5.0": {
+      "CsvHelper/26.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0/CsvHelper.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/CsvHelper.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.5.0": {
         "type": "package",
         "compile": {
@@ -1485,6 +1494,9 @@
       "PPDS.Core/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "CsvHelper": "26.0.1"
+        },
         "compile": {
           "bin/placeholder/PPDS.Core.dll": {}
         },
@@ -1495,6 +1507,28 @@
     }
   },
   "libraries": {
+    "CsvHelper/26.0.1": {
+      "sha512": "8osOmXbxzY8S1w21t5ilmWPIlo0DrfYNUklJvLiBWcb33Sm6v5jATN0DmCsBS5KVLYdwX+vnx+FIGoGF+rJwkw==",
+      "type": "package",
+      "path": "csvhelper/26.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "csvhelper.26.0.1.nupkg.sha512",
+        "csvhelper.nuspec",
+        "lib/net45/CsvHelper.dll",
+        "lib/net45/CsvHelper.xml",
+        "lib/net47/CsvHelper.dll",
+        "lib/net47/CsvHelper.xml",
+        "lib/net5.0/CsvHelper.dll",
+        "lib/net5.0/CsvHelper.xml",
+        "lib/netstandard2.0/CsvHelper.dll",
+        "lib/netstandard2.0/CsvHelper.xml",
+        "lib/netstandard2.1/CsvHelper.dll",
+        "lib/netstandard2.1/CsvHelper.xml"
+      ]
+    },
     "Microsoft.CSharp/4.5.0": {
       "sha512": "kaj6Wb4qoMuH3HySFJhxwQfe8R/sJsNJnANrvv8WdFPMoNbKY5htfNscv+LHCu5ipz+49m2e+WQXpLXr9XYemQ==",
       "type": "package",
@@ -5723,11 +5757,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\patrik.smolar\\source\\repos\\PPDS\\PPDS.Data\\PPDS.Data.csproj",
+      "projectUniqueName": "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS.Data\\PPDS.Data.csproj",
       "projectName": "PPDS.Data",
-      "projectPath": "C:\\Users\\patrik.smolar\\source\\repos\\PPDS\\PPDS.Data\\PPDS.Data.csproj",
+      "projectPath": "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS.Data\\PPDS.Data.csproj",
       "packagesPath": "C:\\Users\\patrik.smolar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\patrik.smolar\\source\\repos\\PPDS\\PPDS.Data\\obj\\",
+      "outputPath": "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS.Data\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\patrik.smolar\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5744,8 +5778,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\patrik.smolar\\source\\repos\\PPDS\\PPDS.Core\\PPDS.Core.csproj": {
-              "projectPath": "C:\\Users\\patrik.smolar\\source\\repos\\PPDS\\PPDS.Core\\PPDS.Core.csproj"
+            "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS.Core\\PPDS.Core.csproj": {
+              "projectPath": "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS.Core\\PPDS.Core.csproj"
             }
           }
         }

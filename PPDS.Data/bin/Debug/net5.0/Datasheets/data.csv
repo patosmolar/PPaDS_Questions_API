@@ -1,0 +1,703 @@
+Časová pečiatka,E-mailová adresa,Meno,Znenie otázky
+26.2.2021 13:36:15,xfriedel@stuba.sk,Matej Friedel,-Použitím návrhového vzoru Mutex vo vykonávanom programe sa dosahuje vynútenie konkurentnosti.
+26.2.2021 13:37:00,xfriedel@stuba.sk,Matej Friedel,"Čo by sme dosiahli implementáciou nasledujúceho kódu?\\
+1)  Mutex.lock()\\
+2)  Counter += 1\\
+3)  if Counter == N:\\
+4)  	Counter = 0\\
+5)  	Turniket.signal(N)\\
+6)  Turniket.wait()\\
+7)  Mutex.unlock()\\
++Uviaznutie
+-Synchronizáciu pomocou vzoru Multiplex
+-Synchronizáciu pomocou vzoru Bariéra
+-Synchronizáciu pomocou vzoru Mutex"
+26.2.2021 13:37:20,xorths@stuba.sk,Samuel Orth,"Pri implementácii multiplexu sa semafor nastavuje na:
+-0
+-1
++N (počet vlákien)
+-(N-1)"
+26.2.2021 13:37:27,xfriedel@stuba.sk,Matej Friedel,Aký dôvod má nastavenie inicializačnej hodnoty objektu Semaphore na hodnotu 0 pri implementácii synchronizačného vzoru Bariéra?
+26.2.2021 13:37:43,xkosarnikp1@stuba.sk,Peter Košarník,"Aké úrovne serializácie poznáme pri mutexe?
++ Serializácia na úrovni vlákien
+- Serializácia na úrovni nití
++ Serializácia na úrovni prístupu k prvku poľa
+- Serializácia na úrovni deadlocku
+- Serializácia na úrovni operačného systému
++ Serializácia na úrovni indexu do poľa
+- Serializácia na úrovni konkurencie"
+26.2.2021 13:37:54,xcurik@stuba.sk,Peter Čuřík,"Ako nazývame tento blok kódu?
+barrier.wait()
+barrier.signal()
++turniket
+-colnica
+-podmienená bariéra
+-silný semafor"
+26.2.2021 13:38:36,xcurik@stuba.sk,Peter Čuřík,"Ktoré vlákno môže otvoriť bariéru?
++posledné, ktoré k bariére príde
+-akékoľvek, ktoré k bariére príde
+-podľa konfigurácie bariéry
+-prvé, ktoré k bariére príde"
+26.2.2021 13:39:37,xkosarnikp1@stuba.sk,Peter Košarník,"Medzi koľkými vláknami prebieha komunikácia pri synchronizačnom vzore ""Signalizácia""?
+-1
++2
+-3
+-4
+-Nie je obmedzené počtom"
+26.2.2021 13:39:43,xpohancenikm@stuba.sk,Matúš Pohančenik,"Popíšte, na ktorom riadku/riadkoch je chyba pri nasledovnej implementacii bariery. Aká chyba nastane?
+
+1 class Barrier:
+2    def __init__(self, N):
+3        self.N = N
+4        self.counter = 0
+5        self.mutex = Mutex()
+6        self.barrier = Semaphore(0)
+7
+8 
+9    def barrier(self):
+10        self.mutex.lock()
+11        self.counter += 1
+12        if self.counter == self.N:
+13            self.barrier.signal()
+14		  self.barrier.wait()
+15        self.barrier.signal()
+16        self.mutex.unlock()"
+26.2.2021 13:39:50,xcurik@stuba.sk,Peter Čuřík,"Majme situáciu, že sme v cykle a máme N vlákien. Každé z vlákien má rôznu rýchlosť. Potrebujeme avšak dostať výsledky jednotlivých vlákien pred tým, než začne ďalšia iterácia cyklu. Aké riešenie na túto situáciu je ideálne?
+-semafor
+-multiplex
++znovupoužiteľná bariéra
+-signalizácia"
+26.2.2021 13:40:11,xkosarnikp1@stuba.sk,Peter Košarník,"Aké prvky potrebujeme na implementáciu bariery?
++ Počítadlo vlakien
++ Semafór
+- Unikátne číselne identifikátory pre každé vlákno
++ Zámok (Mutex)
+- Kľúč od zámku"
+26.2.2021 13:40:53,xpohancenikm@stuba.sk,Matúš Pohančenik,"Bariéra je:
++zovšeobecnenie stretnutia z 2 na N vlákien
+-zovšeobecnenie mutexu
+-obojstranná signalizácia"
+26.2.2021 13:41:24,xkosarnikp1@stuba.sk,Peter Košarník,"Majme dve vlákna A a B. Synchronizačný vzor, ktorý zabezpečuje, že obe vlákna sa musia stretnúť aby mohli pokračovať sa nazýva $$POLE[1]=popup$$
+[1]-Mutex
+[1]-Binárny semafór
+[1]-Turniket
+[1]+Obojstranná signalizácia (Rendezvous)"
+26.2.2021 13:42:58,xpohancenikm@stuba.sk,Matúš Pohančenik,"Pri obojstrannej signalizacii vlákna $$POLE[1]=popup$$ pokračovať, kým sa $$POLE[2]=popup$$:
+[1]+nemôžu
+[1]-môžu
+[2]+nestretnú
+[2]-stretnú"
+26.2.2021 13:44:19,xpohancenikm@stuba.sk,Matúš Pohančenik,"Pri použití multiplexu sa semafór inicializuje na hodnotu:
++n
+-0
+-1
+-(n-1)"
+26.2.2021 13:50:15,xpaskaj@stuba.sk,Juraj Paška,"Ktoré z nasledujúcich tvrdení o priloženom paralelnom behu vlákien s použitím synchronizačného vzoru Rendezvous sú pravdivé ?
+ Vlákno A:
+ 1) kód a1
+ 2) bArrived.wait()
+ 3) aArrived.signal()
+ 4) kód a2
+
+ Vlákno B:
+ 1) kód b1
+ 2) bArrived.signal()
+ 3) aArrived.wait()
+ 4) kód b2
+
++ak s vykonávaním začne vlákno A, príde k 3 vynúteným prepnutím kontextu 
+ (a1, a2 začne skôr ako b1)
++ak s vykonávaním začne vlákno B, príde k 2 vynúteným prepnutím kontextu
+ (b1, b2 začne skôr ako a1)
+-vždy dôjde k 2 vynúteným prepnutiam kontextu
+-vždy dôjde k 3 vynúteným prepnutiam kontextu
+-vždy nastane uviaznutie"
+26.2.2021 13:50:35,xczapalam@stuba.sk,Michal Czapala,"Vyberte správnu odpoveď: Pri signalizácii medzi dvomi vláknami A a B
+-volanie wait sa použije v oboch vláknach
+-volanie signal sa použije v oboch vláknach
+-volanie signal a wait sa použije v jednom vlákne (A alebo B)
++volanie signal sa použije v jednom vlákne (napr. A) a volanie wait v druhom vlákne (napr. B)"
+26.2.2021 13:50:45,xmajtanp@stuba.sk,Patrik Majtán,"Čo vyžaduje znovupoužiteľná bariéra?
+- 2x Mutex
+- 2x Semafor 
++ 2x Turniket
+- 2x Signalizácia"
+26.2.2021 13:51:39,xmajtanp@stuba.sk,Patrik Majtán,"Rendezvous je $$POLE[1]=popup$$ signalizácia, pri ktorej vlákno A $$POLE[2]=popup$$ na vlákno B a vlákno B $$POLE[3]=popup$$ na vlákno A.
+[1]+obojstranná
+[1]-jednostranná
+[2]+čaká
+[2]-nečaká
+[2]-preskočí
+[3]+čaká
+[3]-nečaká
+[3]-preskočí"
+26.2.2021 13:52:45,xmajtanp@stuba.sk,Patrik Majtán,"Ktoré tvrdenie o bariére je pravdivé? 
+- jedno vlákno môže vykonávať KO, aj keď ostatné vlákna neskončili svoje vykonávanie rendezvous
+- každé vlákno môže vykonávať KO, aj keď ostatné vlákna neskončili svoje vykonávanie rendezvous
++ žiadne vlákno nesmie vykonávať KO, pokým všetkým vláknam neskončilo vykonávanie rendezvous
+- každé vlákno smie vykonávať KO už vtedy, keď jednému vláknu skončilo vykonávanie rendezvous"
+26.2.2021 13:59:03,xdomorakm1@stuba.sk,Martin Domorák,"Uvažujeme, že máme správnu implementáciu jednoduchej bariéry, pomocou ktorej chceme pred vstupom do kritickej časti kódu zosynchronizovať N vlákien. **Minimálne** ku koľkým preplánovaniam (zmenám kontextu) musí dôjsť kým bude možné bariéru otvoriť?
+-N
++N-1
+-1
+-nemusí nastať žiadne preplánovanie"
+26.2.2021 14:02:01,xdomorakm1@stuba.sk,Martin Domorák,"Aký je význam využitia Mutexu pri implementácii bariéry?
++správna integrita/konzistencia zdieľanej hodnoty počtu čakajúcich vlákien
+-dosiahnutie efektívnejšej paralelizácie vďaka jednoduchosti tohto abstraktného dátového typu
+-pre správnu funkcionalitu dvojfázovej bariéry
+-na inicializáciu správneho stavu bariéry"
+26.2.2021 14:04:24,xdomorakm1@stuba.sk,Martin Domorák,"Ktoré z nasledujúcich tvrdení o dvojfázovej bariére sú pravdivé?
++bariéry sa otvárajú posledným vláknom, ktoré k bariére príde
++žiadne z vlákien nemôže predbehnúť ostatné vlákna o viac ako 1 turniket
+-na implementáciu nepotrebujeme použiť abstraktný dátový typ
+-tzv. ""nabíjanie turniketov"" je vždy vykonávané prvým vláknom, ktoré príde k bariére"
+26.2.2021 14:06:45,xvrabecm1@stuba.sk,Michal Vrabec,#NAME?
+26.2.2021 14:13:04,xvrabecm1@stuba.sk,Michal Vrabec,"Na koľkých úrovniach vieme serializovať pri mutexe?
+-2
++3
+-4
+-5"
+26.2.2021 14:17:24,xtrstensky@stuba.sk,Jakub Trstenský,+Vykonáva sa kód sériovo pri zamknutom mutexe ?
+26.2.2021 14:17:34,xvrabecm1@stuba.sk,Michal Vrabec,-Pri použití synchronizácie je zachovanie integrity dostačujúcou podmienkou pre zrýchlenie programu
+26.2.2021 14:21:01,xmajtanp@stuba.sk,Patrik Majtán,"-Pri znovupoužiteľnej bariére nie je potrebné, aby sedel počet volaní signal() a wait()."
+26.2.2021 14:21:06,xkorcek@stuba.sk,Ján Korček,"Čo je nutnou podmienkou zámku (Mutex-u)?
+-Dosiahnutie konkurencie
+-Zachovanie paralelizmu
++Zachovanie integrity
+-Dosiahnutie serializácie"
+26.2.2021 14:21:18,xkorcek@stuba.sk,Ján Korček,+Je možné implementovať multiplex synchronizačným vzorom Semaphore?
+26.2.2021 14:21:28,xkorcek@stuba.sk,Čo je nutnou podmienkou zámku (Mutex-u)? -Dosiahnutie konkurencie -Zachovanie paralelizmu +Zachovanie integrity -Dosiahnutie serializácie,"Aké prostriedky budeme potrebovať pri implementovaní vlastnej bariéry?
++Počítadlo vlákien
+-Referenciu na funkciu, ktorá nasleduje po bariére
+-Mutex, ktorým chránime postupnosť vykonávania vlákien
++Mutex, ktorým chránime integritu počídatadla"
+26.2.2021 14:22:02,xkorcek@stuba.sk,Ján Korček,-Je vhodné použiť bariéru pri menej ako 2 výpočtových vláknach?
+26.2.2021 14:24:47,xvrabecm1@stuba.sk,Michal Vrabec,+Pri bariére musíme integritu počítadla vlákien chrániť mutexom
+26.2.2021 14:25:11,xkrc@stuba.sk,Matej Krč,Vysvetlite základný princíp/cieľ bariéry
+26.2.2021 14:27:46,xdomorakm1@stuba.sk,Martin Domorák,"Uvažujeme, že všetky vlákna majú prístup k premennej count a mutexu. Semafor(semaphore) je inicializovaný na hodnotu 0 a počet vlákien (n) je 5.
+ Aká situácia nastane ak by sme spustili nasledovný kód?  
+ mutex.lock() \\
+ count = count + 1 \\
+ if count == n: \\
+    semaphore.signal() \\
+ mutex.unlock() \\
+ semaphore.wait() \\
+ //*časť kódu ktorú chceme zosynchronizovať*// \\
++jednému z vlákien bude umožnené pokračovať vo vykonávaní ale ostatné zostanú zablokované
+-celá synchronizácia prebehne korektne
+-program úspešne zbehne ale synchronizácia nebude správna - žiadne z vlákien nebude čakať
+-posledné vlákno umožní pokračovať všetkým vláknam okrem seba"
+26.2.2021 14:30:01,xsmolar@stuba.sk,Patrik Smolár,"Pre mutex, je zachovanie integrity:
+
+-želaný stav
++nutná podmienka
+"
+26.2.2021 14:30:29,xsmolar@stuba.sk,Patrik Smolár,"turnstile <- semaphore(0)
+count = 0
+
+
+while True:
+	rendezvous
+	mutex.lock()
+		count++
+	mutex.unlock()
+	if count == N: turnstile.signal()
+	turnstile.wait()
+	turnstile.signal()
+
+
+Aké chovanie bude mať nasledujúci kus kódu?
+-korektné
++prvá iterácia v poriadku, nasledujúce však nie
+-deadlock"
+26.2.2021 14:38:23,xtrstensky@stuba.sk,Jakub Trstenský,"+Je pravda, že pri signalizácií dvoch vlákien jedno vlákno hovorí, že nastala nejaká udalosť a druhé vlákno na túto udalosť čaká ?"
+26.2.2021 15:08:37,xkrc@stuba.sk,Matej Krč,"Čo sa vypíše na obrazovku?
+aIsHere = Semaphore(0)\\
+bIsHere = Semaphore(0)\\
+\\
+THREAD A:\\
+...\\
+bIsHere.wait()\\
+aIsHere.signal()\\
+print(""Ahoj"")\\
+\\
+THREAD B:\\
+...\\
+aIsHere.wait()\\
+print(""svet"")\\
+b.IsHere.signal()\\
+
++Nič
+-Ahoj
+-svet
+-svet\nAhoj
+-Ahoj\nsvet"
+26.2.2021 15:12:38,xbabic@stuba.sk,Šimon Babic,"Priraďte k pojmom správne tvrdenie:
+[1] Mutex
+[2] Signalizácia
+[3] Rendezvous
+[4] Bariéra
+[5] Znovupoužiteľná bariéra
+[1] Iba jedno vlákno môže “zamknúť” mutex a pokračovať bez čakania
+[2] Použitie medzi 2 vláknami. Jedno signalizuje druhému nejakú udalosť
+[3] Obojstranná signalizácia (A čaká na B a B čaká na A)
+[4] Žiadne z vlákien nesmie začať vykonávať KO, pokým všetky vlákna neskončili vykonávanie rendezvous
+[5] Každé vlákno vykonáva nejaký algoritmus v cycle
+"
+26.2.2021 15:12:56,xbabic@stuba.sk,Šimon Babic,"Zoraďte úrovne serializácie: 
+[1] Serializácia na úrovni vlákien
+[3] Serializácia na úrovni indexu do poľa
+[2] Serializácia na úrovni prístupu k prvku poľa"
+26.2.2021 15:13:08,xbabic@stuba.sk,Šimon Babic,Rozdiel medzi paralelným a konkurentným behom kódu?
+26.2.2021 16:36:02,xvilhanj@stuba.sk,Jaroslav Vilhan,"Čo predstavuje pojem RENDEZVOUS ?
++synchronizačný vzor
+-jednostranná signalizácia
++obojstranná signalizácia
+-dvojfázová bariéra
+-nabitie turniketu"
+26.2.2021 16:36:25,xvilhanj@stuba.sk,Jaroslav Vilhan,"Čo predstavuje pojem NABITIE TURNIKETU pri uvažovaní N vlákien, kde turniket je reprezentovaný semafórom ?
++jedno vlákno inkrementuje semafór N - krát, následne sa vykonáva už len dekrementácia nad semafórom
+-jedno vlákno dekrementuje semafór N - krát, následne sa vykonáva už len inkrementácia nad semafórom
+-N vlákien vykoná metódu signal() nad semafórom, následne sa vykonáva už len metóda wait() nad semafórom
+-N vlákien vykoná metódu wait() nad semafórom, následne sa vykonáva už len metóda signal() nad semafórom
+-žiadna z odpovedí nie je správna"
+26.2.2021 17:07:55,xvilhanj@stuba.sk,Jaroslav Vilhan,"Vyberte postupnosť krokov pri prechode vlákien dvojfázovou bariérou v cykle:
+-posledné vlákno pred 1. turniketom otvorí 1. turniket, následne otvorí 2. turniket
+-posledné vlákno pred 1. turniketom otvorí 1. turniket, následne zatvorí 2. turniket
+-posledné vlákno pred 1. turniketom otvorí 2. turniket, následne otvorí 1. turniket
++posledné vlákno pred 1. turniketom zatvorí 2. turniket, následne otvorí 1. turniket
+-žiadna z odpovedí nie je správna"
+26.2.2021 18:54:10,xvilhanj@stuba.sk,Jaroslav Vilhan,"Vyberte správne tvrdenie/a o synch. vzore MUTEX:
++kto vyvoláva metódu nad MUTEX-om drží ""token""
++len 1 vlákno môže vykonávať kód, keď drží ""token""
+-najmenej 1 vlákno môže vykonávať kód, keď drží ""token""
+-je zložitejšou verziou semaforu
++dá sa implenmetovať binárnym semafórom, inicializovaným na hodnotu 1"
+26.2.2021 20:12:24,xstevom@stuba.sk,Martin Števo,"Kedy pri rendezvous nenastane deadlock:
+-Obe vlákna volajú najprv wait()
++Obe vlákna volajú najprv signal()
++Jedno vlákno volá najprv signal() a druhé vlákno volá najprv wait()"
+26.2.2021 20:53:17,xstevom@stuba.sk,Martin Števo,-Pri implementácii jednoduchej bariéry musíme nulovať počítadlo.
+26.2.2021 20:54:46,xstevom@stuba.sk,Martin Števo,"Ktoré tvrdenie o bariére je pravdivé?
+-Prvé vlákno odblokuje turniket
++Posledné vlákno odblokuje turniket
+-Turniket je odblokovaný na začiatku"
+26.2.2021 21:01:36,xstevom@stuba.sk,Martin Števo,"+Pri bariére, ktorá je určená na jedno použitie, nemusí po volaniach signal() a wait() hodnota turniketu odpovedať hodnote pri inicializácii"
+27.2.2021 9:59:26,xfriedel@stuba.sk,Matej Friedel,Pri implementácii znovu použiteľnej bariéry je pre jej správne fungovanie potrebné implementovanie tzv. dvojfázovej bariéry. Z akého dôvodu?
+27.2.2021 11:15:59,xkotulicm@stuba.sk,Marek Kotulič,"V stručnosti popíšte, ako funguje bariéra pre N vlákien?"
+27.2.2021 11:55:53,xkotulicm@stuba.sk,Marek Kotulič,"Majme premennú counter, ktorá reprezentuje počítadlo v jednoduchej bariére a premennú N, ktorá reprezentuje počet vlákien. Po splnení, ktorej z nasledujúcich podmienok môžeme dať signál pre otvorenie bariéry? (zmysel bariéry z definície musí byť dodržaný)
++ if counter == N
+- if counter == 0
+- if counter < N
+- if counter > 0"
+27.2.2021 12:30:04,xkotulicm@stuba.sk,Marek Kotulič,"+Je nasledujúce tvrdenie pravdivé? Bariéra nám slúži na to, aby kód za bodom stretnutia nezačalo vykonávať žiadne z vlákien, kým všetky vlákna neskončili vykonávanie rendezvous."
+27.2.2021 12:51:34,xcurik@stuba.sk,Peter Čuřík,"Prečo je potrebné, aby sme pri bariére chránili integritu počítadla?"
+27.2.2021 13:35:46,xkrc@stuba.sk,Matej Krč,Krátko popíšte základný princíp turniketu.
+27.2.2021 13:46:41,xkrc@stuba.sk,Matej Krč,"Z akého dôvodu je/nie je, potrebné/nutné/dobrovolné ? ... pri použití jednoduchej bariéry vynulovať počítadlo prechádzajúcich vlákien?\\
+Uvažujeme základnú schému bariéry.\\
+M.lock()\\
+	C += 1\\
+	if C == N:\\
+		C = 0     <=\\
+		T.signal()\\
+M.unlock()\\
+T.wait()\\"
+27.2.2021 15:12:55,xzbin@stuba.sk,Peter Zbín,"Priraďte správny príklad k synchronizačným vzorom: mutex alebo multiplex:
+
+[1] mutex
+[1] + pacient na operačnom stole
+[1] + väzeň vykonáva svoj trest na samotke
+[1] + ústna časť maturitnej skúšky (z hľadiska súčasne odpovedajúcich)
+
+[2] multiplex
+[2] + väzni zdieľajú jednu celu na výkone svojho trestu
+[2] + pacienti v nemocničnej izbe
+[2] + písomná časť maturitnej skúšky (z hľadiska súčasne odpovedajúcich)"
+27.2.2021 15:32:55,xzbin@stuba.sk,Peter Zbín,"Ktoré tvrdenia vystihujú signalizáciu?
+
++semafor inicializovaný na nulu
+-vlákno čakajúce na signál zisťuje jeho prítomnosť volaním funkcie signal()
+-vlákno, ktoré chce generovať udalosť použije funkciu event()
++vlákno, ktoré čaká na udalosť volá funkciu wait()
+-vlákno, ktoré čaká na udalosť vždy volá funkciu sleep na náhodný čas zo zadaného intervalu"
+27.2.2021 16:33:07,xzbin@stuba.sk,Peter Zbín,"
+Uvažujme obojstrannú signalizáciu medzi vláknami A a B: \\
+\\
+Vlákno A\\
+\\
+A1) kód a1 \\
+A2) _______ \\
+A3) _______ \\
+A4) kód a2 \\
+\\
+Vlákno B \\
+\\
+B1) kód b1 \\
+B2) _____ \\
+B3) _____ \\
+B4) kód b2 \\
+\\
+Priraďte riadky kódu na správne miesto, aby nedošlo k uviaznutiu.\\
+(pomenovanie premenných v riadkoch kódu je na základe mien vláken)\\
+\\
+[1]Pozícia A2
+[1]+bArrived().wait()	 čakanie na signál vlákna B
+[2]Pozícia A3
+[2]+aArrived.signal()	 signál vlákna A
+[3]Pozícia B2
+[3]+bArrived.signal() 	 signál vlákna B
+[4]Pozícia B3
+[4]+aArrived().wait()	 čakanie na signál vlákna A"
+27.2.2021 17:26:49,xkovalak@stuba.sk,Maroš Kovaľák,"+Je pravda, že operácia wait() zníži hodnotu semaforu?"
+27.2.2021 19:16:55,xtrojan@stuba.sk,Martin Trojan,"Aká je hodnota turniketu na konci cyklu? \\ while True: \\	mutex.lock() \\	count +=1 \\	mutex.unlock() \\	if count == N turnstile.sginal()\\	turnstile.wait() \\	turnstile.signal() \\
+-1
++može byť 1 až N
+-može byť 1 alebo N
+-N"
+27.2.2021 19:31:40,xtrojan@stuba.sk,Martin Trojan,"Vyberte správne pomenovania premmenej semafora pri signalizácii.
+-semaphore1
++aReached
+-sem1"
+27.2.2021 19:35:31,xtrojan@stuba.sk,Martin Trojan,-Je možné dosiahnuť strenutie vlákien (rendezvous) pomocou maximálne 1 prepnutia kontextu?
+27.2.2021 19:43:20,xtrojan@stuba.sk,Martin Trojan,"Pri synchronizačnom vzore turniket platí:
+-može ním prejsť v jednom čase n vlákien (n definované pri inicializácii)
++može ním prejsť v jednom čase 1 vlákno
+-môžu ním prejsť maximálne 2 vlákna
+-nemôže ním prejsť žiadne vlákno"
+27.2.2021 22:36:48,xburi@stuba.sk,Ivan Búri,"Na akú hodnotu by sa mal inicializovať interný stav semafóru pri použití synchronizačného vzoru rendezvous?
++0
+-1
+--1
+-netreba inicializovať"
+27.2.2021 22:41:42,xburi@stuba.sk,Ivan Búri,"Majme kód:
+  # … nejaký kód a1
+  aArrived.wait()
+  bArrived.signal()
+  # … nejaký kód a2
+Je daný pseudokód na jednom vlákne správny pri použití synchronizačného vzoru rendezvous? Svoju odpoveď zdôvodni."
+27.2.2021 22:48:55,xburi@stuba.sk,Ivan Búri,"Ktorý zo synchronizačných vzorov predstavuje vlastnosť, že 1 vlákno prejde v 1 čase?
+-rendezvous
+-bariéra
++turniket
+-nabitie turniketu"
+27.2.2021 23:04:41,xburi@stuba.sk,Ivan Búri,"Majme kód:
+  turnstile.wait()
+  count += 1
+  turnstile.signal()
+
+  turnstile je objekt semafóru, pričom jeho interný stav je 5, a count nejaká zdieľaná premenná. Je v tomto kóde použitý synchronizačný vzor bariéra, ak počet používaných threadov je 5? Svoju odpoveď zdôvodnite"
+28.2.2021 14:45:59,xfecova@stuba.sk,Kristina Fecova,"Pre spravnu implementaciu vzoru Bariera potrebujeme pouzit pocitadlo.
+Oznacte pravdive tvrdenie:
++pristup k pocitadlu maju vsetky vlakna
+- integrita pocitadla nemusi byt chranena
+- obe tvrdenia su spravne"
+28.2.2021 14:46:35,xsciranka@stuba.sk,Erik Sciranka,"Stručne popíšte čo je MUTEX, zamerajte sa na jeho výhody a nevýhody."
+28.2.2021 14:51:32,xfecova@stuba.sk,Kristina Fecova,"Implementacia opakovatelnej barriery pomocou nabitia turniketov:
+1)whileTrue:
+2)rendezvous
+3)mutex.lock()
+4)count+= 1
+5)if count== N:
+6)turnstile1.signal(N)
+7)mutex.unlock()
+8)turnstile1.wait()
+9)KO
+10)mutex.lock()
+11)count-= 1
+12)if count == 0:
+13)turnstile2.signal(N)
+14)mutex.unlock()
+15)turnstile2.wait()
+Oznacte spravny sposob inicializacie turnistile2:
++ turnstile2 = Semaphore(0)
+- turnstile2Semaphore(1)
+- obe moznosti su spravne"
+28.2.2021 15:01:27,xsciranka@stuba.sk,Erik Sciranka,"-Je pravda, že pri implementácií Multiplexu nastavujeme parameter inicializácie semaforu na hodnotu 1 (jedna)?"
+28.2.2021 15:31:30,xvavercak@stuba.sk,Patrik Vaverčák,"Na akú hodnotu sa pri Rendezvous inicializuje Semaphore objekt?
++0
+-1
+-0.5
+-1.0"
+28.2.2021 15:49:46,xsciranka@stuba.sk,Erik Sciranka,"Kedy sa bariéra otvára:
+-ak príde na hranicu bariéry druhé vlákno
++ak prídu na hranicu bariéry všetky vlákna
+-pre niektoré vlákna sa nikdy neotvorí
+-ak príde na hranicu bariéry prvé vlákno"
+28.2.2021 16:01:46,xsciranka@stuba.sk,Erik Sciranka,"Vieme nejako zjednodušiť Bariéru? Ak vieme opíšte akým spôsobom, ak nevieme, tak vysvetlite prečo to nie je možné."
+28.2.2021 16:02:41,xvavercak@stuba.sk,Patrik Vaverčák,"Obojstranná signalizácia je inak nazvaný pojem?
++Rendezvous
+-Barrier"
+28.2.2021 17:24:20,xdomin@stuba.sk,Vladislav Domin,"Máme funkciu
+
+def pozdrav():
+    event.wait()
+    print('Ahoj')
+
+event je objekt triedy Event(). Spustíme 5 vlákien s funkciou pozdrav() a zavoláme event.set(). Koľkokrát bude vypísaný reťazec Ahoj?
++5"
+28.2.2021 17:24:27,xdomin@stuba.sk,Vladislav Domin,"Ktoré tvrdenie ohľadom bariéry je pravdivé?
++bariéra potrebuje počítadlo.
+-k prístup k počítadlu má len hlavné vlákno.
++pre zachovanie integrity počítadla je potrebné použit mutex.
+-nepotrebujeme vedieť celkový počet vlákien."
+28.2.2021 17:24:38,xdomin@stuba.sk,Vladislav Domin,+Počítadlo a celkový počet vlákien pri bariére musí byť prístupné všetkým vláknam.
+28.2.2021 17:24:47,xdomin@stuba.sk,Vladislav Domin,+Bariéru pri dvoch vláknach môžeme nazvať aj rendezvous.
+28.2.2021 17:50:36,xolejnikm@stuba.sk,Matúš Olejník,"+Uvažujte pseudokód nižšie. Zachováva takéto riešenie integritu zdieľaných dát pri paralelnom vykonávaní?
+while True:
+    mutex.lock()
+    arr[ind] += 1
+    ind += 1
+    mutex.unlock()"
+28.2.2021 17:54:09,xolejnikm@stuba.sk,Matúš Olejník,"-Uvažujte pseudokód nižšie. Zrýchli sa paralelným vykonávaním beh tohto programu?
+while True:
+    mutex.lock()
+    arr[ind] += 1
+    ind += 1
+    mutex.unlock()"
+28.2.2021 18:47:45,xdiosi@stuba.sk,Richard Diosi,"Zoberme si do úvahy ,že máme dve vlákna A , B pre ktoré chceme implementovať synchronizačný nástroj Rendezvous
+
+pre vlákno A máme nasledujúci kód : 
+1. #nejaký kód a1               
+2. bArrived.wait() 
+3. aArrived.signal()
+4. # ... nejaký kód a2 
+
+pre vlákno B máme nasledujúci kód : 
+1. #nejaký kód b1 
+2. aArrived.wait()
+3. bArrived.signal()
+4. # ... nejaký kód b2 
+
+Akým spôsobom sa vykoná kód na 4 riadku ? 
+
+-konkurentne
+-paralelne
+-sériovo 
+-sério-paralelne
++kód sa nevykoná"
+28.2.2021 19:07:10,xmichalov@stuba.sk,Arne Michalov,"Vyberte pravdive tvrdenia v pripade ze sa jedna o paralelny beh vlakien s vyuzitim vzoru Rendezvous:
+ vlákno B
+1) # kod
+2) aArrived.signal()
+3) bArrived.wait()
+4) # kod
+
+ vlákno A
+1) # kod
+2) bArrived.signal()
+3) aArrived.wait()
+4) # kod
+
+- Pri takejto implementacii dochadza k deadlocku bezohladu nato, ktore vlakno zacne ako prve
+
++ Dojde k 2 vynutenym prepnutim kontextu bezohladu nato, ktore vlakno zacne
+
+- Dojde k 1 vynutenemu prepnutiu kontextu bezohladu nato, ktore vlakno zacne
+
+- Ak by sme v jednom vlakne zamenili riadok 2 a 3 zvysili by sme tym efektivitu 
+
+
+
+
+"
+28.2.2021 19:10:36,xolejnikm@stuba.sk,Matúš Olejník,+Mali by pri synchronizácii mená samaforov reprezentovať udalosť?
+28.2.2021 19:17:08,xmichalov@stuba.sk,Arne Michalov,"Vyberte NEpravdive tvrdenia v pripade ze sa jedna o  paralelny beh vlakien s vyuzitim vzoru Rendezvous:
+
+1) # kod
+2) bArrived.wait()
+3) aArrived.signal()
+4) # kod
+
+ vlákno A
+1) # kod
+2) bArrived.wait()
+3) aArrived.signal()
+4) # kod
+
+- Jedna sa o nespravnu implementaciu z toho dovodu ze prichadza k deadlocku 
+
++ Stretavane sa s jednym vynutenym prepnutim kontextu
+
++ Jedna sa o efektivnu formu implementacie
+
+- V pripade ze v nejakom z vlaken vymenime riadok 2 a 3 ovplyvni to funkcnost riesenia 
+
+"
+28.2.2021 19:32:42,xmichalov@stuba.sk,Arne Michalov,"Vyberte pravdive tvrdenia: 
+
++ Pri inicializacii semaforu vieme nastavit jeho pociatocnu hodnotu 
+-  Pri iniicializii semaforu sa jeho hodnota neda nastavit
++ V pripade ""ADT SimpleBarrier"" je na zaciatku turniket zablokovany 
+-  V pripade ""ADT SimpleBarrier"" nie je na zaciatku turniket zablokovany
+"
+28.2.2021 19:41:49,xmichalov@stuba.sk,Arne Michalov,"Vymenujte 3 zakladne synchronizacne vzory:
++ Mutex
++ Multiplex
++ Bariera"
+28.2.2021 20:15:01,xjancikj@stuba.sk,Jakub Jančík,"Chceme aby definovaná funkcia wait urobila to, aby posledné vlákno zaslal signál na turnikete. Akú podmienku je treba doplniť na riadku číslo 4?
+1 def wait(self):
+2       self.mutex.lock()
+3       self.counter +=1
+4       //if
+5            self.turnstile.signal()
+6        self.mutex.unlock()
+7        self.turnstile.wait()
+"
+28.2.2021 20:15:24,xzbin@stuba.sk,Peter Zbín,"Máme 100 vlákien, uvažujme synchronizačný vzor bariéra. Vyberte správne tvrdenia.
+
++maximálny počet zablokovaných vláken, kedy ešte nie je splnená podmienka prepustenia bariérou je 99
+- vlákna po prepustení bariérou nesmú vykonávať kód konkurentne
+- prístup k počítadlu pri bariére má n-1 vláken, v našom prípade 99
++mutex je vhodným riešením ochrany integrity počítadla bariéry"
+28.2.2021 20:25:48,xolejnikm@stuba.sk,Matúš Olejník,"Kedy pri behu programu dochádza/môže dôjsť k zmene kontextu?
+-len po zavolaní metódy signal()
++hocikedy
+-len po zavolaní metódy wait()
+-zaručene nikdy"
+28.2.2021 20:44:26,xjancikj@stuba.sk,Jakub Jančík,"Ktorá z odpovedí najviac vystihuje zmysel Bariér ?
+- Bariéra čaká na otvorenie až kým nepríde vlákno N-1
++ Pred bariérou sa všetky vlákna počkajú, až kým nepríde N vlákno
+- Bariéra slúži na prechod vlákien po jednom
+- Bariéra náhodne zastaví a nepustí dané vlákno
+"
+28.2.2021 20:49:26,xjancikj@stuba.sk,Jakub Jančík,+ Používa Rendezvous obojstrannú signalizáciu ? 
+28.2.2021 21:12:18,xbartek@stuba.sk,Otto Bartek,"Aby nenastal Deadlock v obojsmernej signalizácii (Rendezvous) je potrebné dodržať:
+
+- V prvom a druhom vlákne nesmie byť použitý ako prvý wait
+- V prvom a druhom vlákne musí byť použitý súčasne ako prvý v poradí wait
++ V prvom vlákne musí byť použitý ako prvý v poradí wait() a zároveň v druhom vlákne musí byť použitý v poradí ako prvý v poradí signal()"
+28.2.2021 21:15:11,xbartek@stuba.sk,Otto Bartek,"Pri definovaní v Bariére N vlákien a po dobehnutí posledného N -tého vlákna nastane?
+
++ Bariéra sa otvorý
+- Bariéra bude čakať
+- Nastane Deadlock "
+28.2.2021 21:30:03,xbartek@stuba.sk,Otto Bartek,"Koľko krát môže byť v Bariére vykonaný signál?
++ <1;N>
+- <0;N>
+- <0;0>"
+28.2.2021 21:49:45,xhajdukp@stuba.sk,Peter Hajduk,+Je nasledovné tvrdenie pravdivé? Multiplex je implementovaný Semaforom.
+28.2.2021 21:52:49,xhajdukp@stuba.sk,Peter Hajduk,+Je nasledovné tvrdenie pravdivé? Dosiahnutie konkurencie je želaným stavom pri správnom implementovní mutexu.
+28.2.2021 21:53:34,xhajdukp@stuba.sk,Peter Hajduk,+Je nasledovné tvrdenie pravdivé? Mutex úmyselne porušuje konkurentnosť.
+28.2.2021 21:54:08,xbartek@stuba.sk,Otto Bartek,"Ak potrebujeme z jedným vláknom vykonať udalosť a zároveň potrebujeme túto udalosť odchytiť druhým vláknom mali by sme použiť?
+
+- Mutex
+- Multiplex
+- Bariéru
++ Signalizáciu"
+28.2.2021 21:57:09,xhajdukp@stuba.sk,Peter Hajduk,"Ktorý synchronizačný vzor implementuje obojstrannú signalizáciu?
++randezvous"
+28.2.2021 22:24:48,xfula@stuba.sk,Andrej Fula,"+Zaručuje Mutex prístup v danom čase k danému toku riadenia iba pre 1 vlákno?
+
+Čo úmyselne porušuje konkurentnosť?
+-Semaphore
+-Event
++Mutex"
+23.2.2021 9:28:33,xdiosi@stuba.sk,Richard Diosi,"Aký je dôsledok implementácie Mutex synchronizačného nástroja ?
+
+- Paralelizmus 
++ Serializmus 
+- Konkurentnosť 
+- Sério-paralelizmus"
+23.2.2021 10:13:03,xdiosi@stuba.sk,Richard Diosi,"Ako sa nazýva daný pattern 
+barrier.wait()
+barrier.signal()
+
+-token
++turniket
+-rendezvous
+-deadlock"
+23.2.2021 10:50:11,xpaskaj@stuba.sk,Juraj Paška,"Synchronizačný mechanizmus Rendezvous predstavuje:
+-binárny semafor
+-zovšeobecnenie binárneho semaforu
+-jednostrannú signalizáciu
++obojstrannú signalizáciu"
+23.2.2021 10:52:35,xdiosi@stuba.sk,Richard Diosi,"Ktorý riadok v kóde spôsobí uviaznutie (deadlock)?
+
+1)	while True:
+2)  	  mutech.lock()
+3)	  count+=1
+4)          if count==N;
+5)             turnstile2.wait()
+6)             turnsti1.signal()
+7)	  mutex.unlock()   	
+8)      turnstile1.wait()
+9)      turnstile1.signal()
+10)    mutex.lock()  
+11)       count-=1
+12)       if count==0:
+13)          turnstile1.wait()
+14)          turnstile2.signal()
+15)       mutex.unlock()
+16)       turnstile2.wait()
+19)       turnstile2.signal()  
+
+
++5
+-8
+-13
+-16
+-5,8,13,16"
+23.2.2021 10:52:50,xczapalam@stuba.sk,Michal Czapala,"Koľkokrát sa zavolá zvýraznená časť kódu počas behu programu?
+ rendezvous
+ mutex.wait()
+    count += 1
+ mutex.signal()
+ if count == N: **barrier.signal()**
+ barrier.wait()
+ KO
+-Práve jedenkrát
+-Ani raz
+-N-krát
+-minimálne 0-krát, maximálne N-krát
++minimálne 1-krát, maximálne N-krát"
+23.2.2021 10:59:29,xczapalam@stuba.sk,Michal Czapala,"Aký synchronizačný vzor predstavuje nasledujúci kód?
+ mutex.lock()
+    counter += 1
+    if C == N:
+       C = 0
+       turnstile.signal(N)
+ mutex.unlock()
+ turnstile.wait()
+-turniket
++znovu-použiteľnú bariéru
+-mutex
+-žiadny, v tomto kóde nastane deadlock"
+23.2.2021 10:59:42,xpaskaj@stuba.sk,Juraj Paška,"Synchronizačná metóda Bariéra zaručuje, že:
+-Prvé vlákno ktoré dosiahne bod bariéry, môže pokračovať
+-Posledné vlákno ktoré dosiahne bod bariéry, môže pokračovať
++Každé vlákno zastaví v bode bariéry a bude čakať, dokým všetky vlákna nedosiahnú tento bod
+-Všetky vlákna, ktoré dosiahnú bod bariéry, môžu pokračovať, okrem prvého vlákna."
+23.2.2021 11:02:26,xpaskaj@stuba.sk,Juraj Paška,"Pri použití synchronizačnej metódy Signalizácie sa semafor inicializuje na hodnotu:
+-(-1)
++0
+-1
+-2"
+23.2.2021 11:05:28,xorths@stuba.sk,Samuel Orth,"Pri zámku mutex je zachovanie $$POLE[1]=text$$ nutnou, nie však dostačujúcou podmienkou!
+[1]+integrity"
+23.2.2021 11:05:55,xorths@stuba.sk,Samuel Orth,"Po otvorení bariéry sa kód vykonáva:
+-paralélne
+-sériovo
++konkurentne"
+23.2.2021 11:06:09,xtrstensky@stuba.sk,Jakub Trstenský,#NAME?
+23.2.2021 11:06:15,xorths@stuba.sk,Samuel Orth,"+V bariére integritu počítadla chránime serializáciou, pomocou mutexu."
+23.2.2021 11:36:19,xbabic@stuba.sk,Šimon Babic,Rozdiel medzi paralelným a konkurentným behom kódu?
+23.2.2021 11:36:51,xbabic@stuba.sk,Šimon Babic,"Priraďte k pojmom správne tvrdenie:
+[1] Mutex
+[2] Signalizácia
+[3] Rendezvous
+[4] Bariéra
+[5] Znovupoužiteľná bariéra
+[1]  Iba jedno vlákno môže “zamknúť” mutex a pokračovať bez čakania
+[2] Použitie medzi 2 vláknami. Jedno signalizuje druhému nejakú udalosť
+[3] Obojstranná signalizácia (A čaká na B a B čaká na A)
+[4] Žiadne z vlákien nesmie začať vykonávať KO, pokým všetky vlákna neskončili vykonávanie     rendezvous
+[5] Každé vlákno vykonáva nejaký algoritmus v cycle"
+23.2.2021 11:37:14,xbabic@stuba.sk,Šimon Babic,"Zoraďte úrovne serializácie: 
+[1] Serializácia na úrovni vlákien
+[3] Serializácia na úrovni indexu do poľa
+[2] Serializácia na úrovni prístupu k prvku poľa"
+23.2.2021 11:50:54,xczapalam@stuba.sk,Michal Czapala,"$$POLE[1]=popup$$ je zovšeobecnenie mutexu tak, aby maximálne N vlákien mohlo vstúpiť do kritickej oblasti.
+[1]-simplex
+[1]-duplex
+[1]+multiplex
+[1]-turniket"

@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "q5zJHx21TXN1iOPGH9a5a9tUwhh0PJ0QKIcHip1RdT+wo8gmL6Bb88wNhYpGYYTbF+egGGvmOuA0ddov/M2+9w==",
+  "dgSpecHash": "FgDsAIV655qOLBtChpmBzicFV6VVcUhjy8SdF7PgFxTgmMQH6PKqP8tUURiyPR1/7+5+sBBuuZvqOmLSX0w2KQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\patrik.smolar\\source\\repos\\PPDS\\PPDS.Core\\PPDS.Core.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS.Core\\PPDS.Core.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\patrik.smolar\\.nuget\\packages\\csvhelper\\26.0.1\\csvhelper.26.0.1.nupkg.sha512"
+  ],
   "logs": []
 }

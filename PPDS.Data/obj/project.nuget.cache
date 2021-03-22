@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Fq74UDie9J+WwAzBp0NtLyIJJFvALhyYmFzAijMQWmsPoaWzfHR3J6keY58x204vkjsbCQShzQgz02X33DqA6w==",
+  "dgSpecHash": "blk+wjCWKE4TiQ35LMcAA1JbgwywjUuW6+xZZJ4vSqOdjXt0f9/lWl5nvYiiOKLPn//pSR+QerMd20RC9Bafbg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\patrik.smolar\\source\\repos\\PPDS\\PPDS.Data\\PPDS.Data.csproj",
+  "projectFilePath": "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS.Data\\PPDS.Data.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\patrik.smolar\\.nuget\\packages\\csvhelper\\26.0.1\\csvhelper.26.0.1.nupkg.sha512",
     "C:\\Users\\patrik.smolar\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\patrik.smolar\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",
     "C:\\Users\\patrik.smolar\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.0.1\\microsoft.data.sqlclient.sni.runtime.2.0.1.nupkg.sha512",

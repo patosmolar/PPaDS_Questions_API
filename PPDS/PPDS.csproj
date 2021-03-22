@@ -6,5 +6,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\PPDS.Data\PPDS.Data.csproj" />
+		<ProjectReference Include="..\PPDS.Core\PPDS.Core.csproj" />
 	</ItemGroup>
 </Project>

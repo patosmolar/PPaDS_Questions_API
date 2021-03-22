@@ -12,6 +12,8 @@ using PPDS.Data;
 using Microsoft.EntityFrameworkCore;
 using PPDS.Data.Repositories.Interfaces;
 using PPDS.Data.Repositories;
+using PPDS.Core.Parser.LectureBuilder;
+using PPDS.Core.Parser.PPDSParser;
 
 namespace PPDS
 {
@@ -32,7 +34,10 @@ namespace PPDS
             );
             services.AddScoped<ILectureRepository, LectrueRepository>();
 
-            services.AddControllersWithViews();
+            services.AddScoped<ILectureBuilder, LectureBuilder>();
+
+            services.AddScoped<IPPDSDatasheetParser, PPDSDatasheetParser>();
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,20 +53,17 @@ namespace PPDS
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
-            app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+            app.UseEndpoints(cfg =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                cfg.MapControllers();
             });
 
+        
             using (var scope = app.ApplicationServices.CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();

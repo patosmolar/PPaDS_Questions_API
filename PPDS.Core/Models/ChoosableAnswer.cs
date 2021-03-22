@@ -1,4 +1,4 @@
-﻿namespace PPDS.Core
+﻿namespace PPDS.Core.Models
 {
     public class ChoosableAnswer
     {

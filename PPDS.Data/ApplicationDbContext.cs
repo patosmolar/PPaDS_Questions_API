@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PPDS.Core;
+using PPDS.Core.Models;
 using System.Collections.Generic;
 
 namespace PPDS.Data

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\patrik.smolar\\source\\repos\\PPDS\\PPDS\\PPDS.csproj": {}
+    "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS\\PPDS.csproj": {}
   },
   "projects": {
-    "C:\\Users\\patrik.smolar\\source\\repos\\PPDS\\PPDS.Core\\PPDS.Core.csproj": {
+    "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS.Core\\PPDS.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\patrik.smolar\\source\\repos\\PPDS\\PPDS.Core\\PPDS.Core.csproj",
+        "projectUniqueName": "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS.Core\\PPDS.Core.csproj",
         "projectName": "PPDS.Core",
-        "projectPath": "C:\\Users\\patrik.smolar\\source\\repos\\PPDS\\PPDS.Core\\PPDS.Core.csproj",
+        "projectPath": "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS.Core\\PPDS.Core.csproj",
         "packagesPath": "C:\\Users\\patrik.smolar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\patrik.smolar\\source\\repos\\PPDS\\PPDS.Core\\obj\\",
+        "outputPath": "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\patrik.smolar\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -39,6 +39,12 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
+          "dependencies": {
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[26.0.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -58,14 +64,14 @@
         }
       }
     },
-    "C:\\Users\\patrik.smolar\\source\\repos\\PPDS\\PPDS.Data\\PPDS.Data.csproj": {
+    "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS.Data\\PPDS.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\patrik.smolar\\source\\repos\\PPDS\\PPDS.Data\\PPDS.Data.csproj",
+        "projectUniqueName": "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS.Data\\PPDS.Data.csproj",
         "projectName": "PPDS.Data",
-        "projectPath": "C:\\Users\\patrik.smolar\\source\\repos\\PPDS\\PPDS.Data\\PPDS.Data.csproj",
+        "projectPath": "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS.Data\\PPDS.Data.csproj",
         "packagesPath": "C:\\Users\\patrik.smolar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\patrik.smolar\\source\\repos\\PPDS\\PPDS.Data\\obj\\",
+        "outputPath": "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\patrik.smolar\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -82,8 +88,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\patrik.smolar\\source\\repos\\PPDS\\PPDS.Core\\PPDS.Core.csproj": {
-                "projectPath": "C:\\Users\\patrik.smolar\\source\\repos\\PPDS\\PPDS.Core\\PPDS.Core.csproj"
+              "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS.Core\\PPDS.Core.csproj": {
+                "projectPath": "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS.Core\\PPDS.Core.csproj"
               }
             }
           }
@@ -126,14 +132,14 @@
         }
       }
     },
-    "C:\\Users\\patrik.smolar\\source\\repos\\PPDS\\PPDS\\PPDS.csproj": {
+    "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS\\PPDS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\patrik.smolar\\source\\repos\\PPDS\\PPDS\\PPDS.csproj",
+        "projectUniqueName": "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS\\PPDS.csproj",
         "projectName": "PPDS",
-        "projectPath": "C:\\Users\\patrik.smolar\\source\\repos\\PPDS\\PPDS\\PPDS.csproj",
+        "projectPath": "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS\\PPDS.csproj",
         "packagesPath": "C:\\Users\\patrik.smolar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\patrik.smolar\\source\\repos\\PPDS\\PPDS\\obj\\",
+        "outputPath": "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\patrik.smolar\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -150,8 +156,11 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\patrik.smolar\\source\\repos\\PPDS\\PPDS.Data\\PPDS.Data.csproj": {
-                "projectPath": "C:\\Users\\patrik.smolar\\source\\repos\\PPDS\\PPDS.Data\\PPDS.Data.csproj"
+              "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS.Core\\PPDS.Core.csproj": {
+                "projectPath": "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS.Core\\PPDS.Core.csproj"
+              },
+              "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS.Data\\PPDS.Data.csproj": {
+                "projectPath": "C:\\Users\\patrik.smolar\\source\\repos\\PPaDS_Questions_API\\PPDS.Data\\PPDS.Data.csproj"
               }
             }
           }
