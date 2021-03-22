@@ -1,4 +1,5 @@
-﻿using PPDS.Core.Parser.Models;
+﻿using PPDS.Core.Models;
+using PPDS.Core.Parser.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,7 @@ namespace PPDS.Core.Parser.PPDSParser
     public interface IPPDSDatasheetParser
     {
         public IEnumerable<RawQuestionData> ParseCSVToRawData(string data);
+
+        public Question ParseRawQuestionContextToQuestion(RawQuestionData questionData);
     }
 }

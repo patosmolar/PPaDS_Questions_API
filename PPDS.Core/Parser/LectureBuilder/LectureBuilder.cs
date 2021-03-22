@@ -19,82 +19,25 @@ namespace PPDS.Core.Parser.LectureBuilder
         }
 
 
-        public Question ParseRawQuestionContentToQuestion(RawQuestionData rawQuestionContent)
+            
+
+        public Lecture BuildLectureFromString(string data, DateTime date, LectureType lectureType)
         {
-            var question = new Question()
+            var rawData = _pPDSDatasheetParser.ParseCSVToRawData(data);
+
+            var lecture = new Lecture()
             {
-                Author = rawQuestionContent.Author,
-                QuestionTypeId = 1
+                Date = date,
+                LectureTypeId = lectureType.Id
             };
 
-            var firstSymbol = rawQuestionContent.QuestionContext.FirstOrDefault(c => !char.IsWhiteSpace(c));
-
-            if (firstSymbol == '+' || firstSymbol == '-')
+            lecture.Questions = new List<Question>();
+            foreach (var rawQuestionData in rawData)
             {
-               
+                lecture.Questions.Add(_pPDSDatasheetParser.ParseRawQuestionContextToQuestion(rawQuestionData));
             }
-            else
-            {
-
-            }
-
-
-            if (firstSymbol == '-')
-            {
-                question.ChoosableAnswers.Add(new ChoosableAnswer()
-                {
-                    Content = "NIE",
-                    IsRight = true
-                });
-                question.ChoosableAnswers.Add(new ChoosableAnswer()
-                {
-                    Content = "ANO",
-                    IsRight = false
-                });
-            }
-            else if (firstSymbol == '+')
-            {
-                question.ChoosableAnswers.Add(new ChoosableAnswer()
-                {
-                    Content = "NIE",
-                    IsRight = false
-                });
-                question.ChoosableAnswers.Add(new ChoosableAnswer()
-                {
-                    Content = "ANO",
-                    IsRight = true
-                });
-
-            }
-            else
-            {
-
-            }
-
-
-
-            return question;
-
+            return lecture;
         }
-
-
-        public Lecture BuildLectureFromString(string data)
-        {
-            var stoj = _pPDSDatasheetParser.ParseCSVToRawData(data);
-
-            var resultLecture = new Lecture();
-            resultLecture.Date = new DateTime();
-            resultLecture.LectureTypeId = 1;
-
-            var Questions = new List<Question>();
-            foreach (var rawQuestionContent in stoj)
-            {
-                Questions.Add(ParseRawQuestionContentToQuestion(rawQuestionContent));
-            }
-
-
-
-            return resultLecture;
-        }
+       
     }
 }

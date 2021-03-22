@@ -4,6 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PPDS.Core.Models;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using PPDS.Core.Parser.PPDSParser;
+using System.Net;
+using System.Net.Http.Headers;
+using PPDS.Data.Repositories.Interfaces;
 
 namespace PPDS.Controllers
 {
@@ -11,15 +18,47 @@ namespace PPDS.Controllers
     [ApiController]
     public class PPDSController : ControllerBase
     {
+        private readonly ILectureBuilder _lectureParser;
+        private readonly ILectureRepository _repository;
 
-        [HttpPost]
-        public IActionResult Post()
+        public PPDSController(ILectureBuilder lectureParser, ILectureRepository repository)
         {
+            this._lectureParser = lectureParser;
+            this._repository = repository;
+        }
 
 
+        [Route("lecture")]
+        [HttpPost]
+        public async Task<IActionResult> AddLectre(IFormFile data, [FromHeader] DateTime date)
+        {
+            string content;
+            using (var dataS = data.OpenReadStream())
+            using (var reader = new StreamReader(dataS))
+            {
+                content = reader.ReadToEnd();
+            }
+
+            var lectureToSave = _lectureParser.BuildLectureFromString(content, date, LectureType.Lecture);
+            await _repository.InsertAsync(lectureToSave);
             return Ok();
         }
 
+        [Route("practise")]
+        [HttpPost]
+        public async Task<IActionResult> AddPractise(IFormFile data, [FromHeader] DateTime date)
+        {
+            string content;
+            using (var dataS = data.OpenReadStream())
+            using (var reader = new StreamReader(dataS))
+            {
+                content = reader.ReadToEnd();
+            }
+
+            var lectureToSave = _lectureParser.BuildLectureFromString(content, date, LectureType.Practise);
+            await _repository.InsertAsync(lectureToSave);
+            return Ok();
+        }
 
 
     }

@@ -10,7 +10,6 @@ namespace PPDS.Core.Parser.LectureBuilder
 {
     public interface ILectureBuilder
     {
-        public Question ParseRawQuestionContentToQuestion(RawQuestionData rawQuestionData);
-        public Lecture BuildLectureFromString(string data);
+        public Lecture BuildLectureFromString(string data, DateTime date, LectureType lectureType);
     }
 }
