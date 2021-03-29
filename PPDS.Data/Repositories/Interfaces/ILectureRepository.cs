@@ -10,5 +10,7 @@ namespace PPDS.Data.Repositories.Interfaces
 {
     public interface ILectureRepository : IBaseRepository<Lecture>
     {
+        public Task<IEnumerable<Lecture>> GetAllByLectureType(LectureType lectureType);
+        public Task<IEnumerable<Lecture>> GetLectureByDateAndType(DateTime dateFrom, DateTime dateTo, LectureType lectureType);
     }
 }

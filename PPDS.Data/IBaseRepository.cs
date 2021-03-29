@@ -21,5 +21,7 @@ namespace PPDS.Data
         Task InsertAsync(TEntity entity);
 
         Task InsertAsync(IEnumerable<TEntity> entities);
+
+        
     }
 }

@@ -13,6 +13,8 @@ namespace PPDS.Core.Models
         public int QuestionTypeId { get; set; }
         public QuestionType QuestionType{ get; set; }
         public ICollection<ChoosableAnswer> ChoosableAnswers{ get; set; }
+        public ICollection<RightOrderAnswer> RightOrderAnswers{ get; set; }
+        public List<MatchingAnswerMain> MainMatchingAnswers{ get; set; }
         public string Author{ get; set; }
         public int LectureId { get; set; }
 

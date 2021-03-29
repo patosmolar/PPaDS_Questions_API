@@ -30,18 +30,28 @@ namespace PPDS.Controllers
 
         [Route("lecture")]
         [HttpPost]
-        public async Task<IActionResult> AddLectre(IFormFile data, [FromHeader] DateTime date)
+        public async Task<IActionResult> AddLecture(IFormFile data, [FromHeader] DateTime date)
         {
-            string content;
-            using (var dataS = data.OpenReadStream())
-            using (var reader = new StreamReader(dataS))
+
+            try
             {
-                content = reader.ReadToEnd();
+                string content;
+                using (var dataS = data.OpenReadStream())
+                using (var reader = new StreamReader(dataS))
+                {
+                    content = reader.ReadToEnd();
+                }
+                var lectureToSave = _lectureParser.BuildLectureFromString(content, date, LectureType.Lecture);
+
+                await _repository.InsertAsync(lectureToSave);
+                return Ok(lectureToSave);
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
             }
 
-            var lectureToSave = _lectureParser.BuildLectureFromString(content, date, LectureType.Lecture);
-            await _repository.InsertAsync(lectureToSave);
-            return Ok();
+
         }
 
         [Route("practise")]
@@ -60,6 +70,15 @@ namespace PPDS.Controllers
             return Ok();
         }
 
+        [Route("lecture")]
+        [HttpGet]
+        public async Task<IEnumerable<Lecture>> GetLectureByDate(DateTime? dateFrom, DateTime? dateTo)
+        {
+
+            return await _repository.GetLectureByDateAndType(dateFrom ?? DateTime.MinValue, dateTo ?? DateTime.MaxValue, LectureType.Lecture);
+            
+
+        }
 
     }
 }

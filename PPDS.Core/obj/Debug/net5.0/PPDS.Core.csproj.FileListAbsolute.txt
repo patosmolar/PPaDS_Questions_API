@@ -22,4 +22,3 @@ C:\Users\patrik.smolar\source\repos\PPaDS_Questions_API\PPDS.Core\obj\Debug\net5
 C:\Users\patrik.smolar\source\repos\PPaDS_Questions_API\PPDS.Core\obj\Debug\net5.0\PPDS.Core.dll
 C:\Users\patrik.smolar\source\repos\PPaDS_Questions_API\PPDS.Core\obj\Debug\net5.0\ref\PPDS.Core.dll
 C:\Users\patrik.smolar\source\repos\PPaDS_Questions_API\PPDS.Core\obj\Debug\net5.0\PPDS.Core.pdb
-C:\Users\patrik.smolar\source\repos\PPaDS_Questions_API\PPDS.Core\bin\Debug\net5.0\Datasheets\data.csv

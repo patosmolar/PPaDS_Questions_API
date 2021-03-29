@@ -18,6 +18,9 @@ namespace PPDS.Data
         public DbSet<Lecture> Lectures { get; set; }
         public DbSet<LectureType> LectureTypes { get; set; }
         public DbSet<ChoosableAnswer> ChoosableAnswers { get; set; }
+        public DbSet<RightOrderAnswer> RightOrderAnswers { get; set; }
+        public DbSet<MatchingAnswerMain> MainMatchingAnswers{ get; set; }
+        public DbSet<MatchingAnswerSecondary> SecondaryMatchingAnswers{ get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -43,6 +46,18 @@ namespace PPDS.Data
                                           .WithOne()
                                           .HasForeignKey(x => x.QuestionId);
 
+            modelBuilder.Entity<Question>().HasMany(x => x.RightOrderAnswers)
+                                          .WithOne()
+                                          .HasForeignKey(x => x.QuestionId);
+
+            modelBuilder.Entity<Question>().HasMany(x => x.MainMatchingAnswers)
+                                          .WithOne()
+                                          .HasForeignKey(x => x.QuestionId);
+
+
+            modelBuilder.Entity<MatchingAnswerMain>().HasMany(x => x.RightMatches)
+                                                .WithOne()
+                                                .HasForeignKey(x => x.MatchingAnswerMainReference);
 
             modelBuilder.Entity<LectureType>().HasKey(e => e.Id);
 
@@ -50,7 +65,7 @@ namespace PPDS.Data
             {
                 LectureType.Lecture,
                 LectureType.Practise,
-                
+
             });
 
 
@@ -58,8 +73,9 @@ namespace PPDS.Data
 
             modelBuilder.Entity<QuestionType>().HasData(new List<QuestionType>()
             {
-                QuestionType.Choosable
-          
+                QuestionType.Choosable,
+                QuestionType.RightOrder,
+                QuestionType.Matching
 
             });
 

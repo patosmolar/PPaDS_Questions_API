@@ -11,5 +11,7 @@ namespace PPDS.Core.Models
         public LectureType LectureType { get; set; }
         public ICollection<Question> Questions { get; set; }
 
+
+
     }
 }

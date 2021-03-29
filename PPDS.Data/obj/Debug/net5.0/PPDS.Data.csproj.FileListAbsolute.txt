@@ -28,4 +28,3 @@ C:\Users\patrik.smolar\source\repos\PPaDS_Questions_API\PPDS.Data\obj\Debug\net5
 C:\Users\patrik.smolar\source\repos\PPaDS_Questions_API\PPDS.Data\obj\Debug\net5.0\PPDS.Data.dll
 C:\Users\patrik.smolar\source\repos\PPaDS_Questions_API\PPDS.Data\obj\Debug\net5.0\ref\PPDS.Data.dll
 C:\Users\patrik.smolar\source\repos\PPaDS_Questions_API\PPDS.Data\obj\Debug\net5.0\PPDS.Data.pdb
-C:\Users\patrik.smolar\source\repos\PPaDS_Questions_API\PPDS.Data\bin\Debug\net5.0\Datasheets\data.csv

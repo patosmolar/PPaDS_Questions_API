@@ -147,4 +147,3 @@ C:\Users\patrik.smolar\source\repos\PPaDS_Questions_API\PPDS\obj\Debug\net5.0\re
 C:\Users\patrik.smolar\source\repos\PPaDS_Questions_API\PPDS\obj\Debug\net5.0\PPDS.pdb
 C:\Users\patrik.smolar\source\repos\PPaDS_Questions_API\PPDS\obj\Debug\net5.0\PPDS.genruntimeconfig.cache
 C:\Users\patrik.smolar\source\repos\PPaDS_Questions_API\PPDS\bin\Debug\net5.0\CsvHelper.dll
-C:\Users\patrik.smolar\source\repos\PPaDS_Questions_API\PPDS\bin\Debug\net5.0\Datasheets\data.csv
