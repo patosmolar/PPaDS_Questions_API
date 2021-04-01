@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PPDS.Core;
+using PPDS.Core.Extensions;
 using PPDS.Core.Models;
 using PPDS.Data.Repositories.Interfaces;
 using System;
@@ -18,11 +19,12 @@ namespace PPDS.Data.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Lecture>> GetAllByLectureType(LectureType lectureType)
+      
+        public async Task<IEnumerable<Lecture>> GetLectureByDateAndType(DateTime dateFrom, DateTime dateTo, LectureType lectureType)
         {
 
             return await _dbContext.Lectures
-                .Where(x => x.LectureTypeId == lectureType.Id)
+                .Where(x => x.LectureTypeId == lectureType.Id && x.Date >= dateFrom && x.Date <= dateTo)
                 .Include(x => x.Questions)
                 .ThenInclude(x => x.ChoosableAnswers)
                 .Include(x => x.Questions)
@@ -31,13 +33,7 @@ namespace PPDS.Data.Repositories
                 .Include(x => x.Questions)
                 .ThenInclude(x => x.RightOrderAnswers)
                 .ToListAsync();
-            
-
         }
 
-        public async Task<IEnumerable<Lecture>> GetLectureByDateAndType(DateTime dateFrom, DateTime dateTo, LectureType lectureType)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

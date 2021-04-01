@@ -72,12 +72,23 @@ namespace PPDS.Controllers
 
         [Route("lecture")]
         [HttpGet]
-        public async Task<IEnumerable<Lecture>> GetLectureByDate(DateTime? dateFrom, DateTime? dateTo)
+        public async Task<IEnumerable<Lecture>> GetLecturesByDate(DateTime? dateFrom, DateTime? dateTo)
         {
-
             return await _repository.GetLectureByDateAndType(dateFrom ?? DateTime.MinValue, dateTo ?? DateTime.MaxValue, LectureType.Lecture);
-            
+        }
+        
+        [Route("practise")]
+        [HttpGet]
+        public async Task<IEnumerable<Lecture>> GetPractisesByDate(DateTime? dateFrom, DateTime? dateTo)
+        {
+            return await _repository.GetLectureByDateAndType(dateFrom ?? DateTime.MinValue, dateTo ?? DateTime.MaxValue, LectureType.Practise);
+        }
 
+        [Route("lecture")]
+        [HttpGet]
+        public async Task<IEnumerable<Lecture>> GetQuestionByString(DateTime? dateFrom, DateTime? dateTo)
+        {
+            return await _repository.GetLectureByDateAndType(dateFrom ?? DateTime.MinValue, dateTo ?? DateTime.MaxValue, LectureType.Lecture);
         }
 
     }
